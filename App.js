@@ -7,28 +7,42 @@ import {vibrate} from './utils'
 export default class App extends React.Component {
   constructor(props: Object) {
     super(props);
-    this.state = { timer: 1500 };
+    this.state = { timer: 10,
+                   breakInterval: false };
   }
 
-  componentDidMount() {
-    this.setIntervalForTimer();
-  }
-
-  resetTimer = () => {
+    resetTimer = () => {
     this.setState({timer: 1500 })
   }
 
-  // test
+  startTimer = () => {
+    this.clockCall = setInterval(() => {
+     this.decrementClock();
+    }, 1000);
+   }
+   
+   decrementClock = () => {  
+    if(this.state.timer === 0) this.timerOver()
+    this.setState((prevstate) => ({ timer: prevstate.timer-1 }));
+   };
+   
+   componentWillUnmount() {
+    clearInterval(this.clockCall);
+   }
 
-  setIntervalForTimer() {
-    this.interval = setInterval(() => this.setState({ timer: --this.state.timer }), 1000);
+  setBreakOrActiveTimer(){
+    if (this.state.breakInterval === false){
+      this.setState({ timer: 11 })
+    } else {
+      this.setState({ timer: 5 })
+    }
   }
 
-  componentDidUpdate() {
-    if (this.state.timer === 1) {
-      vibrate()
-      clearInterval(this.interval);
-    }
+  timerOver() {
+    vibrate()
+    clearInterval(this.clockCall)
+    this.setState({ breakInterval: !this.state.breakInterval })
+    this.setBreakOrActiveTimer()
   }
 
  fmtMSS(s){return(s-(s%=60))/60+(9<s?':':':0')+s}
@@ -38,6 +52,8 @@ export default class App extends React.Component {
       <View style={styles.container}>
         <Text style={styles.paragraph}> {this.fmtMSS(this.state.timer)} </Text>
         <Button onPress={() => this.resetTimer()} title='Reset Timer' style={styles.paragraph} />
+        <Button onPress={() => this.startTimer()} title='Play'/>
+
       </View>
     );
   }
