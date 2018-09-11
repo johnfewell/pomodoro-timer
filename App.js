@@ -11,8 +11,12 @@ export default class App extends React.Component {
                    breakInterval: false };
   }
 
-    resetTimer = () => {
-    this.setState({timer: 1500 })
+  resetTimer = () => {
+    this.setState({
+      timer: 1500,
+      breakInterval: false          
+    })
+
   }
 
   startTimer = () => {
