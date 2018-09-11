@@ -7,8 +7,10 @@ import {vibrate} from './utils'
 export default class App extends React.Component {
   constructor(props: Object) {
     super(props);
-    this.state = { timer: 10,
-                   breakInterval: false };
+    this.state = { 
+      timer: 10,
+      breakInterval: false
+    };
   }
 
   resetTimer = () => {
