@@ -53,14 +53,16 @@ export default class App extends React.Component {
 
   render() {
     const bgStyleWorkOrBreak = this.state.breakInterval ? styles.containerBreak : styles.containerWork
+    const message = this.state.breakInterval ? 'Take a break' : 'Get crackin!'
 
     return (
       
       <View style={[styles.container, bgStyleWorkOrBreak]}  >
+        <Text style={styles.paragraph}>{message}</Text>
         <Text style={styles.paragraph}> {this.fmtMSS(this.state.timer)} </Text>
-        <Button onPress={() => this.resetTimer()} title='Reset Timer' style={styles.paragraph} />
-        <Button onPress={() => this.startTimer()} title='Start'/>
-        <Button onPress={() => this.onButtonStop()} title='Stop!!!'/>
+        <Button style={styles.button} onPress={() => this.resetTimer()} title='Reset Timer' style={styles.paragraph} />
+        <Button style={styles.button} onPress={() => this.startTimer()} title='Start'/>
+        <Button style={styles.button} onPress={() => this.onButtonStop()} title='Stop!!!'/>
       </View>
     );
   }
@@ -87,4 +89,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#34495e',
   },
+  button: {
+    margin: 24,
+  }
 });
