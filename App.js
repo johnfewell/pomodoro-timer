@@ -18,6 +18,8 @@ export default class App extends React.Component {
     this.setState({timer: 1500 })
   }
 
+  // test
+
   setIntervalForTimer() {
     this.interval = setInterval(() => this.setState({ timer: --this.state.timer }), 1000);
   }
