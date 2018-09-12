@@ -28,7 +28,7 @@ export default class App extends React.Component {
    }
 
    onButtonStop = () => {
-    clearInterval(this.state.timer);
+    clearInterval(this.clockCall);
    }
 
    decrementClock = () => {  
@@ -37,7 +37,11 @@ export default class App extends React.Component {
    };
    
    componentWillUnmount() {
-    clearInterval(this.clockCall);
+    this.onButtonStop();
+   }
+
+   componentDidMount(){
+     this.startTimer()
    }
 
   setBreakOrActiveTimer(){
